@@ -4,7 +4,7 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls" }
+local servers = { "html", "cssls", "omnisharp" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -15,7 +15,13 @@ for _, lsp in ipairs(servers) do
     capabilities = nvlsp.capabilities,
   }
 end
-
+-- configuring OmniSharp for C#
+lspconfig.omnisharp.setup {
+  cmd = { "dotnet", "/home/eirik/.local/share/nvim/lsp_servers/omnisharp/OmniSharp.dll" },
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+}
 -- configuring single server, example: typescript
 -- lspconfig.ts_ls.setup {
 --   on_attach = nvlsp.on_attach,
